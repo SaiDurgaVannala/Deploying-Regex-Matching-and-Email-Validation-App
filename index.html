@@ -1,0 +1,53 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex101 Clone</title>
+</head>
+<body>
+    <h1>Regex Matching</h1>
+    
+    <!-- Regex Matching Form -->
+    <form action="{{ url_for('results') }}" method="post">
+        <label for="test_string">Test String:</label>
+        <input type="text" id="test_string" name="test_string" required>
+        <br>
+        <label for="regex_pattern">Regex Pattern:</label>
+        <input type="text" id="regex_pattern" name="regex_pattern" required>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if test_string and regex_pattern %}
+        <h2>Results:</h2>
+        <p>Test String: {{ test_string }}</p>
+        <p>Regex Pattern: {{ regex_pattern }}</p>
+        {% if matches %}
+            <ul>
+                {% for match in matches %}
+                    <li>{{ match }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No matches found.</p>
+        {% endif %}
+    {% endif %}
+
+    <!-- Email Validation Form -->
+    <h2>Email Validation</h2>  <!-- Title for the email validation section -->
+    <form action="{{ url_for('validate_email') }}" method="post">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+        <br>
+        <button type="submit">Validate Email</button>
+    </form>
+
+    {% if email %}
+        <h3>Email Validation Result:</h3>  <!-- Title for the email validation result -->
+        <p>Email: {{ email }}</p>
+        <p>{{ "Valid" if is_valid else "Invalid" }}</p>
+    {% endif %}
+</body>
+</html>
